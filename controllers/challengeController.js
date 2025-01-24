@@ -1,12 +1,18 @@
+import mongoose from "mongoose";
 import challengeModel from "../models/challengeModel.js";
 import userModel from "../models/userModel.js";
+import { registerUserController } from "./userController.js";
 
 
 
 export const viewAllChallengeController = async (req,res) => {
     try{
         const viewChallenges = await challengeModel.find({});
-        return res.status(200).json({viewChallenges});
+        return res.status(200).json({
+            error: false,
+            success: true,
+            data: viewChallenges
+        });
     }catch(error){
         return res.status(400).json({
             message: error.message,
@@ -15,6 +21,72 @@ export const viewAllChallengeController = async (req,res) => {
         });
     }
 }
+
+export const viewChallengeController = async (req,res) => {
+     try{
+        
+         const id = req.params.id;
+
+         if(!mongoose.Types.ObjectId.isValid(id)){
+             return res.status(400).json({
+                message: `User Id ${id} not found`,
+                error: true,
+                succes: false
+             });
+         }
+      
+         const challenge = await challengeModel.findById({_id: id});
+            return res.status(200).json({
+                message: `Data ${id}`,
+                error: false,
+                success: true,
+                data: challenge
+            });
+
+
+     }catch(error){
+        return res.status(400).json({
+            message: error.message,
+            error: true,
+            success: false
+        });
+     }
+}
+
+
+export const viewLimitedChallenges = async (req,res) => {
+    try{
+       const id = Number(req.params.id);
+       console.log(id);
+       const pipeline = [
+        {
+          '$sort': {
+            'createdAt': -1
+          }
+        }, {
+          '$limit': id
+        }
+      ];
+
+      const challenges = await challengeModel.aggregate(pipeline);
+      
+      return res.status(200).json({
+          message: "Limited data",
+          error: true,
+          success: false,
+          data: challenges
+      });
+
+    }catch(error){
+        return res.status(400).json({
+            message: error.message,
+            error: true,
+            success: false
+        });
+    }
+}
+
+
 
 export const createNewChallenge = async (req,res) =>{
    try{
