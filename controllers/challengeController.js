@@ -296,6 +296,24 @@ export  const totalClosedChallenges = async (req,res) => {
    }
 }
 
+export const totalAllChallenges = async (req, res) => {
+    try {
+        const totalChallenges = await challengeModel.countDocuments({});
+        return res.status(200).json({
+            message: "Total number of challenges retrieved successfully",
+            error: false,
+            success: true,
+            totalChallenges: totalChallenges
+        });
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message,
+            error: true,
+            success: false
+        });
+    }
+};
+
 export const updateChallengeStatus = async (req,res) => {
   try{
       const now = new Date();
@@ -318,7 +336,7 @@ export const searchChallenge =  async (req,res) => {
     const data =  await challengeModel.find(
         {
             "$or": [
-                {title: {$regex: req.params.key} }
+                {title: {$regex: req.params.key} },
             ]
         },
         {"title": 1, "_id": 0}
