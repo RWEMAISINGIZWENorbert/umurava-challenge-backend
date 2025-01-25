@@ -23,9 +23,9 @@ export const totalOpenChallenges = async (req,res) => {
 export  const totalClosedChallenges = async (req,res) => {
      try{
             const closedChallenges = await challengeModel.countDocuments({status: 'closed'});
-            
+
             return res.status(200).json({
-                message: " Total number of Open challenges",
+                message: " Total number of closed challenges",
                 error: false,
                 succes: true,
                 data: closedChallenges
@@ -39,6 +39,23 @@ export  const totalClosedChallenges = async (req,res) => {
         });
 
      }
+}
+
+export const updateChallengeStatus = async (req,res) => {
+    try{
+        const now = new Date();
+        const result = await challengeModel.updateMany(
+            { deadline: { $lte: now }, status: 'open' },
+            { $set: { status: 'closed' } }
+        );
+        // console.log(`Updated ${result.nModified} challenges to closed status.`);
+    }catch(error){
+        return res.status(400).json({
+            message: error.message,
+            error: true,
+            success: false
+        });
+    }
 }
 
 export const viewAllChallengeController = async (req,res) => {
