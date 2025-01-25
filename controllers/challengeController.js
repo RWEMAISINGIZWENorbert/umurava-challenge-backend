@@ -217,9 +217,6 @@ export const editChallenge = async (req,res) => {
 }
 
 
-
-
-
 export const deleteChallengeController = async (req,res) => {
     try {
         const adminRole = req.userRole;
@@ -314,4 +311,26 @@ export const updateChallengeStatus = async (req,res) => {
           success: false
       });
   }
+}
+
+export const searchChallenge =  async (req,res) => {
+   try{
+    const data =  await challengeModel.find(
+        {
+            "$or": [
+                {title: {$regex: req.params.key} }
+            ]
+        },
+        {"title": 1, "_id": 0}
+      )
+
+      res.send(data);
+
+   }catch(error){
+       return res.status(400).json({
+        message: error.message,
+        error: true,
+        success: false
+       });
+   }
 }
