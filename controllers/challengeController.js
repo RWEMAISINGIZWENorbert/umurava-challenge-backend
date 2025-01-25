@@ -1,9 +1,45 @@
 import mongoose from "mongoose";
 import challengeModel from "../models/challengeModel.js";
 import userModel from "../models/userModel.js";
-import { registerUserController } from "./userController.js";
 
+export const totalOpenChallenges = async (req,res) => {
+      try{
+           const openChallenges = await challengeModel.countDocuments({status: 'open'});
+           return res.status(200).json({
+            message: " Total number of Open challenges",
+            error: false,
+            succes: true,
+            data: openChallenges
+           })
+      }catch(error) {
+        return res.status(400).json({
+            message: error.message,
+            error: true,
+            success: false
+        });
+      }
+}
 
+export  const totalClosedChallenges = async (req,res) => {
+     try{
+            const closedChallenges = await challengeModel.countDocuments({status: 'closed'});
+            
+            return res.status(200).json({
+                message: " Total number of Open challenges",
+                error: false,
+                succes: true,
+                data: closedChallenges
+               });
+
+     }catch(error){
+        return res.status(400).json({
+            message: error.message,
+            error: true,
+            success: false
+        });
+
+     }
+}
 
 export const viewAllChallengeController = async (req,res) => {
     try{

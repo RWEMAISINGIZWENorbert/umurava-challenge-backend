@@ -22,6 +22,7 @@ if(challengeUpdate){
     console.log("The  Challenge status updated sucessfully");
 }
 
+
 dbConnect().then(() => {
     app.listen(PORT,() =>{
         console.log(`server is carried out on http://localhost:${PORT}`)
