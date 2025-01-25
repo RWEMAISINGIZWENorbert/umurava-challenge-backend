@@ -22,6 +22,11 @@ export const viewAllChallengeController = async (req,res) => {
     }
 }
 
+export const viewTotal = async (req,res) => {
+    const totalChallenges = await challengeModel.find().count();
+    console.log(totalChallenges);
+}
+
 export const viewChallengeController = async (req,res) => {
      try{
         
@@ -217,6 +222,9 @@ export const editChallenge = async (req,res) => {
         })
      }
 }
+
+
+
 
 
 export const deleteChallengeController = async (req,res) => {
