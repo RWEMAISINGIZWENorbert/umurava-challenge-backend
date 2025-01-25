@@ -158,24 +158,21 @@ export const createNewChallenge = async (req,res) =>{
 
 export const editChallenge = async (req,res) => {
      try{
-        const adminRole = req.userRole;
-        if(!adminRole){
-            return res.status(401).json({
-                message: "You are not allowed",
+         
+        const id = req.params.id;
+
+        if(!mongoose.isValidObjectId(id)){
+            throw new Error("The id is not valid");
+        }
+
+        if(!id){
+            return res.status(400).json({
+                message: "Please provide the challenge id",
                 error: true,
                 success: false
-            });
+            })
         }
         
-        const userId = req.userId;
-        const admin = await userModel.findOne({adminId: userId});
-        if(!userId){
-            return res.status(400).json({
-                message: "Anuthorized access",
-                error: true,
-                success: false
-            });
-        }
     
         const { title, deadline,duration, moneyPrize, contactEmail, description, brief, deliverables } = req.body;
      
@@ -190,7 +187,7 @@ export const editChallenge = async (req,res) => {
             deliverables
         }
 
-        const editChallenge = await challengeModel.findOneAndUpdate({adminId:userId}, payload, {new: true});
+        const editChallenge = await challengeModel.findOneAndUpdate({_id:id}, payload, {new: true});
 
         if(editChallenge){
             return res.status(200).json({
@@ -216,30 +213,23 @@ export const editChallenge = async (req,res) => {
      }
 }
 
-
 export const deleteChallengeController = async (req,res) => {
-    try {
-        const adminRole = req.userRole;
-        if(!adminRole){
-            return res.status(401).json({
-                message: "You are not allowed",
-                error: true,
-                success: false
-            });
+    try {                
+        const id = req.params.id;
+
+        if(!mongoose.isValidObjectId(id)){
+            throw new Error("The id is not valid");
         }
 
-        const userId = req.userId;
-
-        const admin = await userModel.findOne({adminId: userId});
-        if(!userId){
+        if(!id){
             return res.status(400).json({
-                message: "Anuthorized access",
+                message: "Please provide the challenge id",
                 error: true,
                 success: false
             });
         }
          
-        const updatedDelete = await challengeModel.findOneAndUpdate({adminId:userId}, {delete: true});
+        const updatedDelete = await challengeModel.findOneAndUpdate({_id:id}, {delete: true});
         if(updatedDelete){
             return res.status(200).json({
                 message: "Data deleted",
