@@ -45,7 +45,7 @@ const challengeSchema = new mongoose.Schema({
     status: {
         type: String,
         enum: ['open', 'closed'],
-        default: 'open'
+        // default: 'open'
     },
 
     delete: {

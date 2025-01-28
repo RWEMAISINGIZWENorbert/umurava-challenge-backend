@@ -308,11 +308,18 @@ export const totalAllChallenges = async (req, res) => {
 export const updateChallengeStatus = async (req,res) => {
   try{
       const now = new Date();
-      const result = await challengeModel.updateMany(
+      const closeResult = await challengeModel.updateMany(
           { deadline: { $lte: now }, status: 'open' },
           { $set: { status: 'closed' } }
       );
-    if(result){
+      const openResult = await challengeModel.updateMany(
+        { deadline: { $gt: now }, status: 'closed' },
+        { $set: { status: 'open' } }
+    );
+ 
+    // console.log(`Closed ${closeResult.nModified} challenges and opened ${openResult.nModified} challenges.`);
+
+    if(closeResult){
         // return res.status(200).json({
         //     message: "Hackaton status updated successfully",
         //     error: false,
@@ -321,6 +328,7 @@ export const updateChallengeStatus = async (req,res) => {
         // });
         // console.log(`Hackathon status updated successfully. Updated ${result.nModified} challenges.`);
     }
+    if(openResult){ }
   }catch(error){
     // return res.status(400).json({
     //     message: error.message,

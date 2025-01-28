@@ -66,6 +66,22 @@ export const loginUserController = async (req,res) => {
             success: false
         });
      }
+
+     if(req.userId){
+        const corsOption= {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None'
+        }
+    
+        res.clearCookie('accessToken', corsOption);
+    
+        return res.status(200).json({
+            message: "Logged out successfully",
+            error: true,
+            succes: false
+        });
+     }
       
      const user = await userModel.findOne({email});
      if(!user){
@@ -114,24 +130,75 @@ export const loginUserController = async (req,res) => {
 }
 
 export const logoutController = async (req,res) => {
-    const userId = req.userId;
-     console.log(userId);
-
-    const corsOption= {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'None'
-    }
-
-    res.clearCookie('accessToken', corsOption);
-
-    return res.status(200).json({
-        message: "Logged out successfully",
-        error: true,
-        succes: false
-    });
+     try {
+        const userId = req.userId;
+        console.log(userId);
+   
+       const corsOption= {
+           httpOnly: true,
+           secure: true,
+           sameSite: 'None'
+       }
+   
+       res.clearCookie('accessToken', corsOption);
+   
+       return res.status(200).json({
+           message: "Logged out successfully",
+           error: true,
+           succes: false
+       });
+     } catch (error) {
+         return res.status(400).json({
+            message: error.message,
+            error: true,
+            success: false
+         });
+     }
 }
 
-const updateUserController = async (req,res) => {
+export const updateUserController = async (req,res) => {
+    try{
+        const { name, email } = req.body; 
+
+        const userId = req.userId;
+        console.log(userId);
     
+        // if(!name || !email){
+        //     return res.status(400).json({
+        //         message: "Please provide our credentials",
+        //         error: true,
+        //         success: false
+        //     });
+        // }
+    
+       const payload = {
+            name,
+            email
+       }
+    
+        const updateUser = await userModel.findByIdAndUpdate({_id: userId}, payload);
+    
+        if(updateUser){
+            return res.status(200).json({
+                message: "Your profile info updated successfully",
+                error: false,
+                succes: true,
+                data: updateUser
+            })
+        }
+    }catch(error){
+          return res.status(400).json({
+            message: error.message,
+            error: true,
+            success: false
+          })
+    }
+}
+
+export const updatePasswordController = async (req,res) => {
+    const { currentPassword, newPassword, confirmPassword} = req.body;
+
+    if(!currentPassword || !newPassword || !confirmPassword){
+        return res.status(200)
+    }
 }
