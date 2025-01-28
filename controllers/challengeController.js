@@ -339,6 +339,33 @@ export const updateChallengeStatus = async (req,res) => {
   }
 }
 
+export const deletePChallengeController = async (req,res) => {
+      try {
+        const id = req.params.id;
+
+        if(!mongoose.isValidObjectId(id)){
+            throw new Error("The id is not valid");
+        }
+       
+        const deletePChallenge = await challengeModel.findByIdAndDelete({_id: id});
+
+        if(deletePChallenge){
+            return res.status(204).json({
+                message: `The challenge ${id} deleted successfully`,
+                error: false,
+                success: true
+            });
+        }
+
+      } catch (error) {
+        return res.status(400).json({
+            message: error.message,
+            error: true,
+            success: false
+        });
+      }
+}
+
 export const searchChallenge =  async (req,res) => {
    try{
     const data =  await challengeModel.find(

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createNewChallenge, deleteChallengeController, editChallenge, searchChallenge, totalAllChallenges, totalClosedChallenges, totalOpenChallenges, viewAllChallengeController, viewChallengeController, viewLimitedChallenges } from "../controllers/challengeController.js";
+import { createNewChallenge, deleteChallengeController, deletePChallengeController, editChallenge, searchChallenge, totalAllChallenges, totalClosedChallenges, totalOpenChallenges, viewAllChallengeController, viewChallengeController, viewLimitedChallenges } from "../controllers/challengeController.js";
 import { auth } from "../middleware/Auth.js";
 const challengeRouter = Router();
 
@@ -13,5 +13,6 @@ challengeRouter.get('/closedChallenges', auth, totalClosedChallenges);
 challengeRouter.post('/create', auth, createNewChallenge);
 challengeRouter.put('/edit/:id', auth, editChallenge);
 challengeRouter.put('/update-delete/:id', auth, deleteChallengeController);
+challengeRouter.delete('/delete-p/:id', auth, deletePChallengeController);
 
 export default challengeRouter;
