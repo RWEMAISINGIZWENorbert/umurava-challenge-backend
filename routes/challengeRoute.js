@@ -12,6 +12,6 @@ challengeRouter.get('/openChallenges', auth, totalOpenChallenges);
 challengeRouter.get('/closedChallenges', auth, totalClosedChallenges);
 challengeRouter.post('/create', auth, createNewChallenge);
 challengeRouter.put('/edit/:id', auth, editChallenge);
-challengeRouter.put('/update-delete', auth, deleteChallengeController);
+challengeRouter.put('/update-delete/:id', auth, deleteChallengeController);
 
 export default challengeRouter;

@@ -52,6 +52,7 @@ const challengeSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     }
+    
 },{timestamps: true});
 
 const challengeModel = new mongoose.model('challenge', challengeSchema);

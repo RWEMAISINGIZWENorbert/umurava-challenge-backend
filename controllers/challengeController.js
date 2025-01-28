@@ -4,7 +4,7 @@ import userModel from "../models/userModel.js";
 
 export const viewAllChallengeController = async (req,res) => {
     try{
-        const viewChallenges = await challengeModel.find({});
+        const viewChallenges = await challengeModel.find({delete: false}, {delete: 0});
         return res.status(200).json({
             error: false,
             success: true,
@@ -33,7 +33,7 @@ export const viewChallengeController = async (req,res) => {
              });
          }
       
-         const challenge = await challengeModel.findById({_id: id});
+         const challenge = await challengeModel.findById({_id: id, delete:false});
             return res.status(200).json({
                 message: `Data ${id}`,
                 error: false,
@@ -234,7 +234,8 @@ export const deleteChallengeController = async (req,res) => {
             return res.status(200).json({
                 message: "Data deleted",
                 error: false,
-                succes: true
+                succes: true,
+                data: updatedDelete
             })
         }
 
@@ -249,7 +250,7 @@ export const deleteChallengeController = async (req,res) => {
 
 export const totalOpenChallenges = async (req,res) => {
     try{
-         const openChallenges = await challengeModel.countDocuments({status: 'open'});
+         const openChallenges = await challengeModel.countDocuments({status: 'open'}, {delete: false});
          return res.status(200).json({
           message: " Total number of Open challenges",
           error: false,
@@ -267,7 +268,7 @@ export const totalOpenChallenges = async (req,res) => {
 
 export  const totalClosedChallenges = async (req,res) => {
    try{
-          const closedChallenges = await challengeModel.countDocuments({status: 'closed'});
+          const closedChallenges = await challengeModel.countDocuments({status: 'closed'} ,{delete: false});
 
           return res.status(200).json({
               message: " Total number of closed challenges",
@@ -288,7 +289,7 @@ export  const totalClosedChallenges = async (req,res) => {
 
 export const totalAllChallenges = async (req, res) => {
     try {
-        const totalChallenges = await challengeModel.countDocuments({});
+        const totalChallenges = await challengeModel.countDocuments({delete: false});
         return res.status(200).json({
             message: "Total number of challenges retrieved successfully",
             error: false,
@@ -311,13 +312,22 @@ export const updateChallengeStatus = async (req,res) => {
           { deadline: { $lte: now }, status: 'open' },
           { $set: { status: 'closed' } }
       );
-      // console.log(`Updated ${result.nModified} challenges to closed status.`);
+    if(result){
+        // return res.status(200).json({
+        //     message: "Hackaton status updated successfully",
+        //     error: false,
+        //     success: true,
+        //     data: result
+        // });
+        // console.log(`Hackathon status updated successfully. Updated ${result.nModified} challenges.`);
+    }
   }catch(error){
-      return res.status(400).json({
-          message: error.message,
-          error: true,
-          success: false
-      });
+    // return res.status(400).json({
+    //     message: error.message,
+    //     error: true,
+    //     success: false
+    //    });
+    console.error('Error updating challenge status:', error.message);
   }
 }
 

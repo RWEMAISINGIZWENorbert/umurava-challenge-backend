@@ -130,5 +130,8 @@ export const logoutController = async (req,res) => {
         error: true,
         succes: false
     });
+}
 
+const updateUserController = async (req,res) => {
+    
 }
