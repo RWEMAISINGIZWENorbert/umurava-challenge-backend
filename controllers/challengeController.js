@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import challengeModel from "../models/challengeModel.js";
-import userModel from "../models/userModel.js";
 
+//Get all challenges
 export const viewAllChallengeController = async (req,res) => {
     try{
         const viewChallenges = await challengeModel.find({delete: false}, {delete: 0});
@@ -19,7 +19,7 @@ export const viewAllChallengeController = async (req,res) => {
     }
 }
 
-
+//get One challenge By id
 export const viewChallengeController = async (req,res) => {
      try{
         
@@ -35,7 +35,7 @@ export const viewChallengeController = async (req,res) => {
       
          const challenge = await challengeModel.findById({_id: id, delete:false});
             return res.status(200).json({
-                message: `Data ${id}`,
+                message: `Challenge Id ${id}`,
                 error: false,
                 success: true,
                 data: challenge
@@ -50,8 +50,8 @@ export const viewChallengeController = async (req,res) => {
         });
      }
 }
-
-
+ 
+//get the limited number of challenges e.g If you want only 2 challenges in 100 challenges its sorted by the date
 export const viewLimitedChallenges = async (req,res) => {
     try{
        const id = Number(req.params.id);
@@ -84,7 +84,7 @@ export const viewLimitedChallenges = async (req,res) => {
     }
 }
 
-
+// Create the new challenge
 export const createNewChallenge = async (req,res) =>{
    try{
     const adminRole = req.userRole;
@@ -156,6 +156,7 @@ export const createNewChallenge = async (req,res) =>{
    }
 }
 
+//Edit the challenge
 export const editChallenge = async (req,res) => {
      try{
          
@@ -213,6 +214,7 @@ export const editChallenge = async (req,res) => {
      }
 }
 
+//Delete the challenge
 export const deleteChallengeController = async (req,res) => {
     try {                
         const id = req.params.id;
@@ -248,6 +250,7 @@ export const deleteChallengeController = async (req,res) => {
     }
 }
 
+//get the total number of Open challenges 
 export const totalOpenChallenges = async (req,res) => {
     try{
          const openChallenges = await challengeModel.countDocuments({status: 'open'}, {delete: false});
@@ -266,6 +269,8 @@ export const totalOpenChallenges = async (req,res) => {
     }
 }
 
+
+//get the total number of closed challenges
 export  const totalClosedChallenges = async (req,res) => {
    try{
           const closedChallenges = await challengeModel.countDocuments({status: 'closed'} ,{delete: false});
@@ -287,6 +292,8 @@ export  const totalClosedChallenges = async (req,res) => {
    }
 }
 
+
+//get the total number of the closed challenges
 export const totalAllChallenges = async (req, res) => {
     try {
         const totalChallenges = await challengeModel.countDocuments({delete: false});
@@ -305,6 +312,8 @@ export const totalAllChallenges = async (req, res) => {
     }
 };
 
+
+//Update the challenges status from open to closed when  the deadline  date meet
 export const updateChallengeStatus = async (req,res) => {
   try{
       const now = new Date();
@@ -339,6 +348,7 @@ export const updateChallengeStatus = async (req,res) => {
   }
 }
 
+//delete the challenge permanently
 export const deletePChallengeController = async (req,res) => {
       try {
         const id = req.params.id;
@@ -366,6 +376,7 @@ export const deletePChallengeController = async (req,res) => {
       }
 }
 
+//Search In the challenge model by the characters
 export const searchChallenge =  async (req,res) => {
    try{
     const data =  await challengeModel.find(
