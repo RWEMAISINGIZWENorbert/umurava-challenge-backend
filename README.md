@@ -1,6 +1,6 @@
 #                             Umurava challenge backend-api
 
-# ser routes entry point
+# User routes entry point
 
 
 1.**Sign up**:  
