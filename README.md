@@ -1,8 +1,8 @@
 
-    #Umurava challenge backend-api
+                   Umurava challenge backend-api
 
 
-      #user routes entry point
+      user routes entry point
 
 Sign up  `http://localhost:8000/user/register`
 Login    `http://localhost:8000/user/login`
