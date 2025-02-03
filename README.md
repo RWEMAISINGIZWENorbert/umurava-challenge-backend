@@ -2,16 +2,19 @@
                    Umurava challenge backend-api
 
 
-      user routes entry point
+    -user routes entry point
 
-Sign up  `http://localhost:8000/user/register`
-Login    `http://localhost:8000/user/login`
-Admin credentials: Email: admin@hotmail.com,
+1.Sign up:  
+```http://localhost:8000/user/register```
+2.Login:    
+```http://localhost:8000/user/login```
+3.Admin credentials: Email: admin@hotmail.com,
                             password: admin123
 
      Challenges routes entry point
 
-1. **View All challenges**:  #http://localhost:8000/challenge/challenges
+1. **View All challenges**:  
+#http://localhost:8000/challenge/challenges
 2. **View one challenge By Id**:  ```http://localhost:8000/challenge/challenge/{id}```
 3. **View the limited challenges**:  ````http://localhost:8000/challenge/limitedChallenges/{Limit number eg: 2}```
 4. **Total number of all challenges**:  ```http://localhost:8000/challenge/Allchallenges ```
