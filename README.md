@@ -1,6 +1,6 @@
 # Umurava challenge backend-api
 
-    ### user routes entry point
+# ser routes entry point
 
 
 1.**Sign up**:  
@@ -22,7 +22,7 @@ http://localhost:8000/user/login
          ```
 
      
-     ### Challenges routes entry point
+# Challenges routes entry point
 
 1. **View All challenges**:  
 ```
