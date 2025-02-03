@@ -21,7 +21,7 @@ cron.schedule('* * * * * *', () => {
     updateChallengeStatus();
 })
 
-const whiteList = ['http://example1.com', 'http://example2.com' ];
+const whiteList = ['http://example1.com', 'http://example2.com',];
 const corsOption = {
     origin: function (origin, callback){
         if(whiteList.indexOf(origin) != -1 || !origin){
