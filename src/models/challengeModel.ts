@@ -56,7 +56,7 @@ const challengeSchema: Schema = new mongoose.Schema({
         type: String,
         default: 'open'
     }
-});
+},{timestamps: true});
 
 const challengeModel = mongoose.model<IChallenge>('Challenge', challengeSchema);
 export default challengeModel;

@@ -11,7 +11,8 @@ import {
     viewAllChallengeController, 
     viewChallengeController, 
     getChallengesByAdmin, 
-    getChallengesByStatus 
+    getChallengesByStatus,
+    viewLimitedChallenges 
 } from "../controllers/challengeController";
 import { auth } from "../middleware/Auth";
 
@@ -20,6 +21,7 @@ const challengeRouter = Router();
 challengeRouter.get('/challenges', auth, viewAllChallengeController);
 challengeRouter.get('/search/:key', auth, searchChallenge);
 challengeRouter.get('/challenge/:id', auth, viewChallengeController);
+challengeRouter.get('/limitedChallenges/:id', auth, viewLimitedChallenges);
 challengeRouter.get('/allChallenges', auth, totalAllChallenges);
 challengeRouter.get('/openChallenges', auth, totalOpenChallenges);
 challengeRouter.get('/closedChallenges', auth, totalClosedChallenges);

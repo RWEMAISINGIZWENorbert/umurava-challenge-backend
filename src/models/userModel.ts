@@ -5,6 +5,8 @@ interface IUser extends Document {
     email: string;
     password: string;
     profile_image: string;
+    role: string,
+    isActive: boolean
 }
 
 const userSchema: Schema = new mongoose.Schema({
@@ -25,8 +27,18 @@ const userSchema: Schema = new mongoose.Schema({
     profile_image: { 
         type: String,
         default: ''
+    },
+    role: {
+        type: String,
+        enum: ['admin', 'talent'],
+        required: true
+    },
+    isActive: {
+        type: Boolean,
+        default: false
     }
-});
+},{ timestamps: true }
+);
 
 const userModel = mongoose.model<IUser>('User', userSchema);
 export default userModel;
