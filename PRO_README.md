@@ -62,26 +62,48 @@ The server will run on `http://localhost:8000` by default (configurable via `.en
 ## API Endpoints
 
 ### User Routes
-- `POST /user/register` — Register a new user
-- `POST /user/login` — User login
-- `PUT /user/update` — Update user profile (auth required)
-- `GET /user/logout` — Logout (auth required)
+
+- **Sign up**:  
+  `POST http://localhost:8000/user/register`
+- **Login**:    
+  `POST http://localhost:8000/user/login`
+- **Update user**:  
+  `PUT http://localhost:8000/user/update` (auth required)
+- **Logout**:  
+  `GET http://localhost:8000/user/logout` (auth required)
 
 **Admin default credentials:**
 - Email: `admin@hotmail.com`
 - Password: `admin123`
 
 ### Challenge Routes
-- `GET /challenge/challenges` — View all challenges (auth required)
-- `GET /challenge/challenge/:id` — View a challenge by ID (auth required)
-- `GET /challenge/limitedChallenges/:limit` — View limited number of challenges (auth required)
-- `GET /challenge/allChallenges` — Total number of all challenges (auth required)
-- `GET /challenge/openChallenges` — Total number of open challenges (auth required)
-- `GET /challenge/closedChallenges` — Total number of closed challenges (auth required)
-- `POST /challenge/create` — Create a new challenge (auth required)
-- `PUT /challenge/edit/:id` — Edit a challenge by ID (auth required)
-- `PUT /challenge/update-delete/:id` — Update delete status (auth required)
-- `DELETE /challenge/delete-p/:id` — Permanently delete a challenge (auth required)
+
+- **View all challenges**:  
+  `GET http://localhost:8000/challenge/challenges` (auth required)
+- **Search challenges**:  
+  `GET http://localhost:8000/challenge/search/:key` (auth required)
+- **View one challenge by ID**:  
+  `GET http://localhost:8000/challenge/challenge/:id` (auth required)
+- **View limited challenges**:  
+  `GET http://localhost:8000/challenge/limitedChallenges/:id` (auth required)
+- **Total number of all challenges**:  
+  `GET http://localhost:8000/challenge/allChallenges` (auth required)
+- **Total number of open challenges**:  
+  `GET http://localhost:8000/challenge/openChallenges` (auth required)
+- **Total number of closed challenges**:  
+  `GET http://localhost:8000/challenge/closedChallenges` (auth required)
+- **Get challenges by admin**:  
+  `GET http://localhost:8000/challenge/admin/:adminId` (auth required)
+- **Get challenges by status**:  
+  `GET http://localhost:8000/challenge/status/:status` (auth required)
+- **Create new challenge**:  
+  `POST http://localhost:8000/challenge/create` (auth required)
+- **Edit challenge by ID**:  
+  `PUT http://localhost:8000/challenge/edit/:id` (auth required)
+- **Update delete status**:  
+  `PUT http://localhost:8000/challenge/update-delete/:id` (auth required)
+- **Delete challenge permanently**:  
+  `DELETE http://localhost:8000/challenge/delete-p/:id` (auth required)
 
 ## Project Structure
 
