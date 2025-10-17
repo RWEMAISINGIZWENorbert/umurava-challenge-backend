@@ -53,6 +53,7 @@ import userRouter from './routes/userRoute';
 import challengeRouter from './routes/challengeRoute';
 import cors from 'cors';
 import { updateChallengeStatus } from './controllers/challengeController';
+import { setupSwaggerDocs } from './swagger';
 
 dotenv.config();
 
@@ -88,6 +89,7 @@ app.get('/', (req,res) => {
 
 dbConnect().then(() => {
     app.listen(PORT, () => {
+        setupSwaggerDocs(app);
         console.log(`Server is running on http://localhost:${PORT}`);
     });
 });
