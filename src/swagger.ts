@@ -12,7 +12,7 @@ const options: swaggerJSDoc.Options = {
     },
     servers: [
       {
-        url: "https://store-backend-v1.vercel.app", // Replace with your deployed backend
+        url: "https://umurava-challenge-backend-jta5.onrender.com", // Replace with your deployed backend
       },
     ],
   },
